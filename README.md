@@ -1,0 +1,106 @@
+## Microservices
+Microservices use RabbitMQ for internal communication.
+
+- GraphQL for external communication
+- Restful API for internal communication
+
+### Meetup Service
+#### API
+authenticated post
+```yaml
+mutate event{}
+```
+response
+```yaml
+{
+  "data":{
+    "event":{
+      "_id": object_id,
+    }
+  }
+}
+```
+#### Test
+- [ ] create event
+- [ ] update event
+- [ ] delete event
+- [ ] read events
+
+### User Service
+
+## User tests
+- [ ] login to get token
+- [ ] logout to delete token
+- [ ] use token to get protected resources 
+- [ ] use token to push protected resources 
+- [ ] use token to delete protected resources 
+### Invite Service
+### Chat Service
+#### API
+authenticated post
+```yaml
+mutate events(id){
+  "chats": push
+      { 
+      "user_id": object_id,
+      "name": str,
+      "message": str,
+      }
+}
+```
+response
+```yaml
+{
+  "data":{
+    "event":{
+      "_id": object_id,
+      "chats":[...]
+    }
+  }
+}
+```
+
+## Graphql
+```yaml
+type user{
+    "name": str, 
+    "password": str,
+    "phone": str, required
+    "email": str, 
+    "emailConfirmed": bool, 
+    "token": str,
+    "createdAt": timestamp,
+    "updatedAt": timestamp,
+}
+```
+
+```yaml
+type events{
+    "name": str, required
+    "isVirtual": bool, required
+    "isPrivate": bool, required
+    "size": int, required
+    "owner": user_id, required
+    "guests":[
+      {
+      "user_id": object_id, 
+      "phone": str,
+      "confirmed": nil},
+      ], required
+    "intro": str,
+    "createdAt": timestamp,
+    "updatedAt": timestamp,
+    "startAt": timestamp, required
+    "endAt": timestamp, required
+    "location":[
+      "zoom":{
+        "id":str,
+        "password":str},
+      "address":str], required
+    "chats":[{
+        "user_id": object_id,
+        "name": str,
+        "message": str,
+        "createdAt": timestamp},]
+}
+```
