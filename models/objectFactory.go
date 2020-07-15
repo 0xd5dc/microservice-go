@@ -1,4 +1,4 @@
-package main
+package model
 
 import (
 	"fmt"
@@ -53,23 +53,18 @@ type Zoom struct {
 	Password string `json:"password",bson:"password"`
 }
 
-func main() {
-	v := createObjects(Zoom{})
-	fmt.Print(v)
-}
-
-func createObjects(a interface{}) []interface{} {
-	v := make([]interface{}, 100)
-	for i := 0; i < 100; i++ {
-		v[i], _ = createObject(a)
+func createObjects(a interface{}, num int) []interface{} {
+	v := make([]interface{}, num)
+	for i := 0; i < num; i++ {
+		v[i] = createObject(a)
 	}
 	return v
 }
 
-func createObject(a interface{}) (interface{}, error) {
+func createObject(a interface{}) interface{} {
 	err := faker.FakeData(&a)
 	if err != nil {
 		fmt.Println(err)
 	}
-	return &a, err
+	return &a
 }
