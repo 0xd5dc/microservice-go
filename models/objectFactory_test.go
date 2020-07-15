@@ -7,7 +7,7 @@ import (
 
 func TestCreateObjects(t *testing.T) {
 	n := 20
-	v := createObjects(Event{}, n)
+	v := CreateObjects(Event{}, n)
 	if len(v) != n {
 		t.Errorf("Expected size of %d, got size of %d ", n, len(v))
 	}

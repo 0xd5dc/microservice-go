@@ -14,6 +14,7 @@ type User struct {
 	Token          string `faker:"jwt",json:"token"`
 	CreatedAt      string `faker:"timestamp",json:"createdAt"`
 	UpdatedAt      string `faker:"timestamp",json:"updatedAt"`
+	DeletedAt      string `json:"deleted_at",bson:"deletedAt"`
 }
 type Guest struct {
 	UserId    string `json:"user_id",bson:"userId"`
@@ -31,7 +32,7 @@ type Event struct {
 	Intro     string    `faker:"sentence",json:"intro",bson:"intro"`
 	CreatedAt string    `faker:"timestamp",json:"created_at",bson:"createdAt"`
 	UpdatedAt string    `faker:"timestamp",json:"updated_at",bson:"updatedAt"`
-	DeletedAt string    `faker:"timestamp",json:"deleted_at",bson:"deletedAt"`
+	DeletedAt string    `json:"deleted_at",bson:"deletedAt"`
 	StartAt   string    `faker:"timestamp",json:"start_at",bson:"startAt"`
 	EndAt     string    `faker:"timestamp",json:"end_at",bson:"endAt"`
 	Locations []Address `json:"locations",bson:"locations"`
@@ -53,7 +54,7 @@ type Zoom struct {
 	Password string `json:"password",bson:"password"`
 }
 
-func createObjects(a interface{}, num int) []interface{} {
+func CreateObjects(a interface{}, num int) []interface{} {
 	v := make([]interface{}, num)
 	for i := 0; i < num; i++ {
 		v[i] = createObject(a)
