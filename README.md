@@ -1,3 +1,60 @@
+## DB
+### Model 
+- User
+- Event
+### Seeder
+object factory manufactures model objects
+
+## Graphql
+```yaml
+type user{
+    "name": str, 
+    "password": str,
+    "phone": str, required
+    "email": str, 
+    "emailConfirmed": bool, 
+    "token": str,
+    "createdAt": timestamp,
+    "updatedAt": timestamp,
+    "deletedAt": timestamp,
+}
+```
+
+```yaml
+type events{
+    "name": str, required
+    "isVirtual": bool, required
+    "isPrivate": bool, required
+    "size": int, required
+    "owner": user_id, required
+    "guests":[
+      {
+      "user_id": object_id, 
+      "phone": str,
+      "confirmed": nil},
+      ], required
+    "intro": str,
+    "createdAt": timestamp,
+    "updatedAt": timestamp,
+    "deletedAt": timestamp,
+    "startAt": timestamp, required
+    "endAt": timestamp, required
+    "location":[
+      "zoom":{
+        "id":str,
+        "password":str},
+      "address":{
+          "street":str,
+          "city":str,
+          "state":str}], required
+    "chats":[
+      {
+        "user_id": object_id,
+        "name": str,
+        "message": str},]
+}
+```
+
 ## Microservices
 Microservices use RabbitMQ for internal communication.
 
@@ -64,52 +121,3 @@ response
 }
 ```
 
-## Graphql
-```yaml
-type user{
-    "name": str, 
-    "password": str,
-    "phone": str, required
-    "email": str, 
-    "emailConfirmed": bool, 
-    "token": str,
-    "createdAt": timestamp,
-    "updatedAt": timestamp,
-    "deletedAt": timestamp,
-}
-```
-
-```yaml
-type events{
-    "name": str, required
-    "isVirtual": bool, required
-    "isPrivate": bool, required
-    "size": int, required
-    "owner": user_id, required
-    "guests":[
-      {
-      "user_id": object_id, 
-      "phone": str,
-      "confirmed": nil},
-      ], required
-    "intro": str,
-    "createdAt": timestamp,
-    "updatedAt": timestamp,
-    "deletedAt": timestamp,
-    "startAt": timestamp, required
-    "endAt": timestamp, required
-    "location":[
-      "zoom":{
-        "id":str,
-        "password":str},
-      "address":{
-          "street":str,
-          "city":str,
-          "state":str}], required
-    "chats":[
-      {
-        "user_id": object_id,
-        "name": str,
-        "message": str},]
-}
-```
