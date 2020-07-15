@@ -6,6 +6,7 @@ import (
 )
 
 type User struct {
+	Id             string `json:"_id,omitempty" bson:"_id,omitempty"`
 	Name           string `faker:"name",json:"name",bson:"name"`
 	Password       string `faker:"password",json:"password",bson:"password"`
 	Phone          string `faker:"phone_number",json:"phone",bson:"phone"`
@@ -23,6 +24,7 @@ type Guest struct {
 }
 
 type Event struct {
+	Id        string    `json:"_id,omitempty" bson:"_id,omitempty"`
 	Name      string    `json:"name",bson:"name"`
 	IsVirtual bool      `json:"is_virtual",bson:"isVirtual"`
 	IsPrivate bool      `json:"is_private",bson:"isPrivate"`
@@ -57,12 +59,12 @@ type Zoom struct {
 func CreateObjects(a interface{}, num int) []interface{} {
 	v := make([]interface{}, num)
 	for i := 0; i < num; i++ {
-		v[i] = createObject(a)
+		v[i] = CreateObject(a)
 	}
 	return v
 }
 
-func createObject(a interface{}) interface{} {
+func CreateObject(a interface{}) interface{} {
 	err := faker.FakeData(&a)
 	if err != nil {
 		fmt.Println(err)

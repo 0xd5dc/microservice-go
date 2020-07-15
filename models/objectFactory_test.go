@@ -22,7 +22,7 @@ func TestCreateObject(t *testing.T) {
 	objects := []interface{}{Zoom{}, Address{}, Event{}, User{}, Message{}, Guest{}}
 	for _, v := range objects {
 		t.Run(reflect.TypeOf(v).String(), func(t *testing.T) {
-			a := createObject(v)
+			a := CreateObject(v)
 			if a == nil {
 				t.Errorf("%p is null", a)
 			}
