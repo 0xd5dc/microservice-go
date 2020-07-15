@@ -6,14 +6,14 @@ import (
 )
 
 type User struct {
-	Name           string `faker:"name",json:"name"`
-	Password       string `faker:"password",json:"password"`
-	Phone          string `faker:"phone_number",json:"phone"`
-	Email          string `faker:"email",json:"email"`
-	EmailConfirmed bool   `json:"emailConfirmed"`
-	Token          string `faker:"jwt",json:"token"`
-	CreatedAt      string `faker:"timestamp",json:"createdAt"`
-	UpdatedAt      string `faker:"timestamp",json:"updatedAt"`
+	Name           string `faker:"name",json:"name",bson:"name"`
+	Password       string `faker:"password",json:"password",bson:"password"`
+	Phone          string `faker:"phone_number",json:"phone",bson:"phone"`
+	Email          string `faker:"email",json:"email",bson:"email"`
+	EmailConfirmed bool   `json:"emailConfirmed",bson:"emailConfirmed"`
+	Token          string `faker:"jwt",json:"token",bson:"token"`
+	CreatedAt      string `faker:"timestamp",json:"createdAt",bson:"createdAt"`
+	UpdatedAt      string `faker:"timestamp",json:"updatedAt",bson:"updatedAt"`
 	DeletedAt      string `json:"deleted_at",bson:"deletedAt"`
 }
 type Guest struct {
