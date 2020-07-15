@@ -4,7 +4,7 @@ Microservices use RabbitMQ for internal communication.
 - GraphQL for external communication
 - Restful API for internal communication
 
-### Meetup Service
+### Event Service
 #### API
 authenticated post
 ```yaml
@@ -21,20 +21,24 @@ response
 }
 ```
 #### Test
+- [ ] service runnable
+- [ ] service stoppable
+- [ ] read events
 - [ ] create event
 - [ ] update event
 - [ ] delete event
-- [ ] read events
 
 ### User Service
-
-## User tests
+#### API
+#### tests
 - [ ] login to get token
 - [ ] logout to delete token
 - [ ] use token to get protected resources 
 - [ ] use token to push protected resources 
 - [ ] use token to delete protected resources 
+
 ### Invite Service
+
 ### Chat Service
 #### API
 authenticated post
@@ -71,6 +75,7 @@ type user{
     "token": str,
     "createdAt": timestamp,
     "updatedAt": timestamp,
+    "deletedAt": timestamp,
 }
 ```
 
@@ -90,17 +95,21 @@ type events{
     "intro": str,
     "createdAt": timestamp,
     "updatedAt": timestamp,
+    "deletedAt": timestamp,
     "startAt": timestamp, required
     "endAt": timestamp, required
     "location":[
       "zoom":{
         "id":str,
         "password":str},
-      "address":str], required
-    "chats":[{
+      "address":{
+          "street":str,
+          "city":str,
+          "state":str}], required
+    "chats":[
+      {
         "user_id": object_id,
         "name": str,
-        "message": str,
-        "createdAt": timestamp},]
+        "message": str},]
 }
 ```
