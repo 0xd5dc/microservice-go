@@ -6,7 +6,7 @@ import (
 )
 
 type User struct {
-	Id             string `json:"_id,omitempty" bson:"_id,omitempty"`
+	Id             string `json:"-" bson:"-"`
 	Name           string `faker:"name",json:"name",bson:"name"`
 	Password       string `faker:"password",json:"password",bson:"password"`
 	Phone          string `faker:"phone_number",json:"phone",bson:"phone"`
@@ -24,7 +24,7 @@ type Guest struct {
 }
 
 type Event struct {
-	Id        string    `json:"_id,omitempty" bson:"_id,omitempty"`
+	Id        string    `json:"-" bson:"-"`
 	Name      string    `json:"name",bson:"name"`
 	IsVirtual bool      `json:"is_virtual",bson:"isVirtual"`
 	IsPrivate bool      `json:"is_private",bson:"isPrivate"`
