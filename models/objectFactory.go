@@ -3,57 +3,58 @@ package model
 import (
 	"fmt"
 	"github.com/bxcodec/faker"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type User struct {
-	Id             string `json:"-" bson:"-"`
-	Name           string `faker:"name",json:"name",bson:"name"`
-	Password       string `faker:"password",json:"password",bson:"password"`
-	Phone          string `faker:"phone_number",json:"phone",bson:"phone"`
-	Email          string `faker:"email",json:"email",bson:"email"`
-	EmailConfirmed bool   `json:"emailConfirmed",bson:"emailConfirmed"`
-	Token          string `faker:"jwt",json:"token",bson:"token"`
-	CreatedAt      string `faker:"timestamp",json:"createdAt",bson:"createdAt"`
-	UpdatedAt      string `faker:"timestamp",json:"updatedAt",bson:"updatedAt"`
-	DeletedAt      string `json:"deleted_at",bson:"deletedAt"`
+	Id             primitive.ObjectID `faker:"-" json:"_id,omitempty" bson:"_id,omitempty"`
+	Name           string             `faker:"name",json:"name" bson:"name"`
+	Password       string             `faker:"password",json:"password" bson:"password"`
+	Phone          string             `faker:"phone_number",json:"phone" bson:"phone"`
+	Email          string             `faker:"email",json:"email" bson:"email"`
+	EmailConfirmed bool               `json:"emailConfirmed" bson:"emailConfirmed"`
+	Token          string             `faker:"jwt",json:"token" bson:"token"`
+	CreatedAt      string             `faker:"timestamp",json:"createdAt" bson:"createdAt"`
+	UpdatedAt      string             `faker:"-",json:"updatedAt" bson:"updatedAt"`
+	DeletedAt      string             `faker:"-" json:"deletedAt" bson:"deletedAt"`
 }
 type Guest struct {
-	UserId    string `json:"user_id",bson:"userId"`
-	Phone     string `faker:"phone_number",json:"phone",bson:"phone"`
-	Confirmed bool   `json:"confirmed",bson:"confirmed"`
+	UserId    primitive.ObjectID `faker:"-" json:"user_id" bson:"userId"`
+	Phone     string             `faker:"phone_number",json:"phone" bson:"phone"`
+	Confirmed bool               `json:"confirmed" bson:"confirmed"`
 }
 
 type Event struct {
-	Id        string    `json:"-" bson:"-"`
-	Name      string    `json:"name",bson:"name"`
-	IsVirtual bool      `json:"is_virtual",bson:"isVirtual"`
-	IsPrivate bool      `json:"is_private",bson:"isPrivate"`
-	Size      int       `json:"size",bson:"size"`
-	Owner     string    `json:"owner",bson:"owner"`
-	Guests    []Guest   `json:"guests",bson:"guests"`
-	Intro     string    `faker:"sentence",json:"intro",bson:"intro"`
-	CreatedAt string    `faker:"timestamp",json:"created_at",bson:"createdAt"`
-	UpdatedAt string    `faker:"timestamp",json:"updated_at",bson:"updatedAt"`
-	DeletedAt string    `json:"deleted_at",bson:"deletedAt"`
-	StartAt   string    `faker:"timestamp",json:"start_at",bson:"startAt"`
-	EndAt     string    `faker:"timestamp",json:"end_at",bson:"endAt"`
-	Locations []Address `json:"locations",bson:"locations"`
-	Chats     []Message `json:"chats"`
+	Id        primitive.ObjectID   `faker:"-" json:"_id,omitempty" bson:"_id,omitempty"`
+	Name      string               `json:"name" bson:"name"`
+	IsVirtual bool                 `json:"is_virtual" bson:"isVirtual"`
+	IsPrivate bool                 `json:"is_private" bson:"isPrivate"`
+	Size      int                  `json:"size" bson:"size"`
+	Owner     primitive.ObjectID   `json:"owner_id,omitempty" bson:"owner_id,omitempty"`
+	Guests    []primitive.ObjectID `json:"guests" bson:"guests"`
+	Intro     string               `faker:"sentence",json:"intro" bson:"intro"`
+	CreatedAt string               `faker:"timestamp",json:"createdAt" bson:"createdAt"`
+	UpdatedAt string               `faker:"-",json:"updatedAt" bson:"updatedAt"`
+	DeletedAt string               `faker:"-" json:"deletedAt" bson:"deletedAt"`
+	StartAt   string               `faker:"timestamp",json:"startAt" bson:"startAt"`
+	EndAt     string               `faker:"timestamp",json:"endAt" bson:"endAt"`
+	Locations []Address            `json:"locations" bson:"locations"`
+	Chats     []Message            `json:"chats"`
 }
 type Message struct {
-	UserId  string `json:"user_id",bson:"userId"`
-	Name    string `faker:"name",json:"name",bson:"name"`
-	Message string `faker:"sentence",json:"message",bson:"message"`
+	UserId  primitive.ObjectID `json:"user_id,omitempty" bson:"user_id,omitempty"`
+	Name    string             `faker:"name",json:"name" bson:"name"`
+	Message string             `faker:"sentence",json:"message" bson:"message"`
 }
 
 type Address struct {
-	Street string `json:"street",bson:"street"`
-	City   string `json:"city",bson:"city"`
-	State  string `json:"state",bson:"state"`
+	Street string `json:"street" bson:"street"`
+	City   string `json:"city" bson:"city"`
+	State  string `json:"state" bson:"state"`
 }
 type Zoom struct {
-	ZoomId   string `json:"zoom_id",bson:"zoomId"`
-	Password string `json:"password",bson:"password"`
+	ZoomId   string `json:"zoom_id" bson:"zoom_id"`
+	Password string `json:"password" bson:"password"`
 }
 
 func CreateObjects(a interface{}, num int) []interface{} {
