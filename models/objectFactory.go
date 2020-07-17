@@ -16,8 +16,8 @@ type User struct {
 	EmailConfirmed bool               `json:"emailConfirmed" bson:"emailConfirmed"`
 	Token          string             `faker:"jwt" json:"token" bson:"token"`
 	CreatedAt      time.Time          `json:"createdAt" bson:"createdAt"`
-	UpdatedAt      time.Time          `faker:"-" json:"updatedAt" bson:"updatedAt"`
-	DeletedAt      time.Time          `faker:"-" json:"deletedAt" bson:"deletedAt"`
+	UpdatedAt      time.Time          `faker:"-" json:"updatedAt,omitempty" bson:"updatedAt,omitempty"`
+	DeletedAt      time.Time          `faker:"-" json:"deletedAt,omitempty" bson:"deletedAt,omitempty"`
 }
 type Guest struct {
 	UserId    primitive.ObjectID `faker:"-" json:"user_id" bson:"userId"`
@@ -35,8 +35,8 @@ type Event struct {
 	Guests    []primitive.ObjectID `json:"guests" bson:"guests"`
 	Intro     string               `faker:"sentence" json:"intro" bson:"intro"`
 	CreatedAt time.Time            `json:"createdAt" bson:"createdAt"`
-	UpdatedAt time.Time            `faker:"-" json:"updatedAt" bson:"updatedAt"`
-	DeletedAt time.Time            `faker:"-" json:"deletedAt" bson:"deletedAt"`
+	UpdatedAt time.Time            `faker:"-" json:"updatedAt,omitempty" bson:"updatedAt,omitempty"`
+	DeletedAt time.Time            `faker:"-" json:"deletedAt,omitempty" bson:"deletedAt,omitempty"`
 	StartAt   time.Time            `json:"startAt" bson:"startAt"`
 	EndAt     time.Time            `json:"endAt" bson:"endAt"`
 	Locations []Address            `json:"locations" bson:"locations"`
