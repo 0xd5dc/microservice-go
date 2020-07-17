@@ -1,12 +1,14 @@
 package service
 
 import (
+	model "awesomeProject/models"
 	"encoding/json"
 	"errors"
 	"fmt"
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/dgrijalva/jwt-go/request"
 	"github.com/gorilla/mux"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
 	"net/http"
 	"os"
@@ -18,8 +20,12 @@ var users = map[string]string{"naren": "passme", "admin": "password"}
 
 // Response is a representation of JSON response for JWT
 type Response struct {
-	Token  string `json:"token"`
-	Status string `json:"status"`
+	Token  string      `json:"token"`
+	Status string      `json:"status"`
+	Data   interface{} `json:"data"`
+}
+type Data struct {
+	Id primitive.ObjectID `faker:"-" json:"_id,omitempty" bson:"_id,omitempty"`
 }
 
 // HealthcheckHandler returns the date and time
@@ -106,18 +112,57 @@ func main() {
 }
 
 func UserHandler(writer http.ResponseWriter, h *http.Request) {
+	//validate authentication
 	switch h.Method {
 	case http.MethodGet:
+		//200 (OK), single customer. 404 (Not Found), if ID not found or invalid.
+
+		//get bson from request
+		//convert bson to User
+		//find user and respond
+		//user:=bsonToModel(user_bson)
+		//GetUser(&user)
+
+		writer.WriteHeader(http.StatusOK)
+		writer.WriteHeader(http.StatusNotFound)
 		errors.New("Not implemented")
 	case http.MethodPost:
-		writer.Header().Add("user", "user data")
-		writer.Header().Add("token", "token data")
-		writer.WriteHeader(http.StatusCreated)
+		//404 (Not Found), 409 (Conflict) if resource already exists..
+		user := model.User{}
+		if err := json.NewDecoder(h.Body).Decode(&user); err != nil {
+			writer.WriteHeader(http.StatusNotFound)
+		} else {
+			insertedId, err := CreateUser(user)
+			if err != nil {
+				writer.WriteHeader(http.StatusConflict)
+			} else {
+				response := Response{Data: Data{Id: insertedId}}
+				res, _ := json.Marshal(response)
+				writer.Write(res)
+				writer.WriteHeader(http.StatusCreated)
+			}
+		}
+	case http.MethodPatch:
+		//200 (OK) or 204 (No Content). 404 (Not Found), if ID not found or invalid.
+		errors.New("Not implemented")
+		writer.WriteHeader(http.StatusNoContent)
+		writer.WriteHeader(http.StatusNotFound)
+		writer.WriteHeader(http.StatusOK)
+
 	case http.MethodPut:
+		//200 (OK) or 204 (No Content). 404 (Not Found), if ID not found or invalid.
 		errors.New("Not implemented")
+		writer.WriteHeader(http.StatusOK)
+		writer.WriteHeader(http.StatusNoContent)
+		writer.WriteHeader(http.StatusNotFound)
+		//res, _ := UpdateUser(filter, update)
 	case http.MethodDelete:
+		//200 (OK). 404 (Not Found), if ID not found or invalid.
 		errors.New("Not implemented")
+		writer.WriteHeader(http.StatusOK)
+		writer.WriteHeader(http.StatusNotFound)
 	default:
-		errors.New("Not implemented")
+		//respond with 405 (Method Not Allowed),
+		writer.WriteHeader(http.StatusMethodNotAllowed)
 	}
 }
