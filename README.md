@@ -1,4 +1,5 @@
-## DB
+# Microservices for web chat and event invites
+This project uses a GraphQL to handle web chats and event CURD
 ### Model 
 - User
 - Event
