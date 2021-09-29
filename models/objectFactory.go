@@ -13,8 +13,8 @@ type User struct {
 	Password       string             `faker:"password" json:"password" bson:"password"`
 	Phone          string             `faker:"phone_number" json:"phone" bson:"phone"`
 	Email          string             `faker:"email" json:"email" bson:"email"`
-	EmailConfirmed bool               `json:"emailConfirmed" bson:"emailConfirmed"`
 	Token          string             `faker:"jwt" json:"token" bson:"token"`
+	EmailConfirmed bool               `json:"emailConfirmed" bson:"emailConfirmed"`
 	CreatedAt      time.Time          `json:"createdAt" bson:"createdAt"`
 	UpdatedAt      time.Time          `faker:"-" json:"updatedAt,omitempty" bson:"updatedAt,omitempty"`
 	DeletedAt      time.Time          `faker:"-" json:"deletedAt,omitempty" bson:"deletedAt,omitempty"`
